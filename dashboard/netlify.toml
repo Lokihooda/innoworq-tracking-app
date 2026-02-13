@@ -1,0 +1,59 @@
+# Netlify Configuration for Innoworq Dashboard
+# Build and deploy settings for static site hosting
+
+[build]
+  # Dashboard is a static site, no build command needed
+  command = ""
+  # Publish directory contains the static files
+  publish = "."
+
+[build.environment]
+  # Set Node version for build (optional, if using Node.js tools)
+  NODE_VERSION = "18"
+
+# Redirect rules for single-page app routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache headers for assets
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "max-age=3600, public"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "max-age=0, no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/styles.css"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+[[headers]]
+  for = "/script.js"
+  [headers.values]
+    Cache-Control = "max-age=31536000, immutable"
+
+# Performance settings
+[functions]
+  # Lambda functions directory (not used for static site)
+  directory = "functions/"
+
+# Context for production
+[context.production]
+  command = ""
+  publish = "."
+
+# Context for preview deployments
+[context.deploy-preview]
+  command = ""
+  publish = "."
+
+# Context for branch deployments
+[context.branch-deploy]
+  command = ""
+  publish = "."
