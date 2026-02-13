@@ -181,5 +181,20 @@ To contribute to this dashboard:
 
 For issues or questions, please:
 - Create an issue in the repository
+- 
+## Deployment
+
+### Netlify
+
+This dashboard is configured for automatic deployment to Netlify. The repository includes a `netlify.toml` configuration file that specifies the build and publish settings.
+
+**To deploy to Netlify:**
+
+1. Ensure the Netlify GitHub app is installed on your account
+2. The app will automatically detect this repository and create a site
+3. Each push to the main branch will trigger an automatic deployment
+
+**Live Dashboard URL:** (Will be available once deployed to Netlify)
+
 - Contact the development team
 - Check the main README.md for general project information
