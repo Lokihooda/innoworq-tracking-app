@@ -191,4 +191,64 @@ if (trackingForm) {
             messageDiv.textContent = '✗ Error: ' + err.message;
         }
     });
+
+    // Function to add engineer to Active Engineers table
+function addEngineerToTable(engineerData) {
+  const tableBody = document.getElementById('engineersTable');
+  if (!tableBody) return;
+
+  // Create a unique avatar with initials
+  const initials = engineerData.engineer
+    .split(' ')
+    .map(name => name[0])
+    .join('')
+    .toUpperCase();
+  
+  const colors = ['4f46e5', '10b981', 'f59e0b', 'ef4444', '8b5cf6'];
+  const bgColor = colors[Math.floor(Math.random() * colors.length)];
+
+  // Create new row
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = `
+    <td>
+      <div class="user-cell">
+        <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(engineerData.engineer)}&background=${bgColor}&color=fff" alt="${engineerData.engineer}">
+        <span>${engineerData.engineer}</span>
+      </div>
+    </td>
+    <td><span class="status-badge active">${engineerData.status || 'Active'}</span></td>
+    <td>${engineerData.location || 'Lat: ' + engineerData.lat + ', Lng: ' + engineerData.lng}</td>
+    <td>${engineerData.ticketId}</td>
+    <td>Just now</td>
+    <td>
+      <button class="btn-icon" title="View Details"><i class="fas fa-eye"></i></button>
+      <button class="btn-icon" title="Track Location"><i class="fas fa-map-marker-alt"></i></button>
+    </td>
+  `;
+  
+  // Add the new row to the table
+  tableBody.insertBefore(newRow, tableBody.firstChild);
+}
+
+// Update form submission handler to also update the Active Engineers table
+if (trackingForm) {
+  const originalSubmitHandler = trackingForm.onsubmit;
+  
+  trackingForm.addEventListener('submit', function(e) {
+    // Get form data for table update
+    const engineerData = {
+      engineer: this.engineer.value,
+      ticketId: this.ticketId.value,
+      employeeId: this.employeeId.value,
+      lat: this.lat.value,
+      lng: this.lng.value,
+      status: this.status.value || 'Active',
+      location: `(${this.lat.value}, ${this.lng.value})`,
+      remark: this.remark.value
+    };
+    
+    // Add engineer to table
+    addEngineerToTable(engineerData);
+  });
+}
 }
