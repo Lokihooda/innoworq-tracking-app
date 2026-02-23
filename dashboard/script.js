@@ -143,3 +143,51 @@ window.DashboardUtils = {
     formatDate,
     showNotifications
 };
+
+// Google Sheets Integration
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzs07SdRNhlH8SFa6tctq2zFYx06q6FlP6WoNKS-S9Qe9gEOvCNTJ42EKLleMQ_ajaK/exec';
+
+// Handle tracking form submission
+const trackingForm = document.getElementById('trackingForm');
+if (trackingForm) {
+    trackingForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const messageDiv = document.getElementById('formMessage');
+        
+        const payload = {
+            engineer: form.engineer.value,
+            ticketId: form.ticketId.value,
+            lat: form.lat.value,
+            lng: form.lng.value,
+            status: form.status.value,
+            remark: form.remark.value,
+        };
+
+        try {
+            messageDiv.style.display = 'block';
+            messageDiv.style.background = '#fef3c7';
+            messageDiv.textContent = 'Submitting...';
+
+            await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
+
+            messageDiv.style.background = '#d1fae5';
+            messageDiv.textContent = '✓ Location submitted successfully to Google Sheets!';
+            form.reset();
+            
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
+        } catch (err) {
+            messageDiv.style.background = '#fee2e2';
+            messageDiv.textContent = '✗ Error: ' + err.message;
+        }
+    });
+}
