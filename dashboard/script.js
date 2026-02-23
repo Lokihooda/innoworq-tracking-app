@@ -180,6 +180,7 @@ if (trackingForm) {
             });
 
             messageDiv.style.background = '#d1fae5';
+                 addEngineerToTable({engineer: form.engineer.value, ticketId: form.ticketId.value, lat: form.lat.value, lng: form.lng.value, status: form.status.value || 'Active'});
             messageDiv.textContent = '✓ Location submitted successfully to Google Sheets!';
             form.reset();
             
@@ -197,17 +198,11 @@ function addEngineerToTable(engineerData) {
   const tableBody = document.getElementById('engineersTable');
   if (!tableBody) return;
 
-  // Create a unique avatar with initials
-  const initials = engineerData.engineer
-    .split(' ')
-    .map(name => name[0])
-    .join('')
-    .toUpperCase();
-  
+  // Create a random color for avatar
   const colors = ['4f46e5', '10b981', 'f59e0b', 'ef4444', '8b5cf6'];
   const bgColor = colors[Math.floor(Math.random() * colors.length)];
 
-  // Create new row
+  // Create new row with engineer data
   const newRow = document.createElement('tr');
   newRow.innerHTML = `
     <td>
@@ -217,7 +212,7 @@ function addEngineerToTable(engineerData) {
       </div>
     </td>
     <td><span class="status-badge active">${engineerData.status || 'Active'}</span></td>
-    <td>${engineerData.location || 'Lat: ' + engineerData.lat + ', Lng: ' + engineerData.lng}</td>
+    <td>(${engineerData.lat}, ${engineerData.lng})</td>
     <td>${engineerData.ticketId}</td>
     <td>Just now</td>
     <td>
@@ -226,29 +221,6 @@ function addEngineerToTable(engineerData) {
     </td>
   `;
   
-  // Add the new row to the table
+  // Add the new row to the beginning of the table
   tableBody.insertBefore(newRow, tableBody.firstChild);
-}
-
-// Update form submission handler to also update the Active Engineers table
-if (trackingForm) {
-  const originalSubmitHandler = trackingForm.onsubmit;
-  
-  trackingForm.addEventListener('submit', function(e) {
-    // Get form data for table update
-    const engineerData = {
-      engineer: this.engineer.value,
-      ticketId: this.ticketId.value,
-      employeeId: this.employeeId.value,
-      lat: this.lat.value,
-      lng: this.lng.value,
-      status: this.status.value || 'Active',
-      location: `(${this.lat.value}, ${this.lng.value})`,
-      remark: this.remark.value
-    };
-    
-    // Add engineer to table
-    addEngineerToTable(engineerData);
-  });
-}
 }
