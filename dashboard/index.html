@@ -260,6 +260,37 @@
                     </table>
                 </div>
             </section>
+
+                    <!-- Engineer Tracking Form -->
+        <section class="card table-card">
+            <div class="card-header">
+                <h3>Submit Engineer Location</h3>
+            </div>
+            <form id="trackingForm" style="padding: 20px;">
+                <div style="margin-bottom: 15px;">
+                    <input type="text" name="engineer" placeholder="Engineer Name" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" name="ticketId" placeholder="Ticket ID" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" name="lat" placeholder="Latitude" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" name="lng" placeholder="Longitude" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <input type="text" name="status" placeholder="Status (e.g., En Route, Completed)" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <textarea name="remark" placeholder="Remark/Notes" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; min-height: 80px;"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Location
+                </button>
+                <div id="formMessage" style="margin-top: 15px; padding: 10px; display: none; border-radius: 4px;"></div>
+            </form>
+        </section>
         </main>
     </div>
 
