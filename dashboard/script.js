@@ -145,7 +145,7 @@ window.DashboardUtils = {
 };
 
 // Google Sheets Integration
-const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzs07SdRNhlH8SFa6tctq2zFYx06q6FlP6WoNKS-S9Qe9gEOvCNTJ42EKLleMQ_ajaK/exec';
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyPR0ynl_xMS4mmu_TAmscMhlhb4mf6Y12J8G4s8DbLPRwdvuint8ixaUm23tXNq7Sp/exec';
 
 // Handle tracking form submission
 const trackingForm = document.getElementById('trackingForm');
